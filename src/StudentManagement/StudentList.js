@@ -7,11 +7,14 @@ import {
 } from "../reducers/studentReducer";
 
 const StudentList = () => {
-    const { students } = useSelector((state) => state.student);
+    const { students, searchValue } = useSelector((state) => state.student);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(fetchStudent());
     }, []);
+    useEffect(() => {
+        dispatch(fetchStudent());
+    }, [searchValue]);
 
     const handleDelete = (studentId) => {
         dispatch(deleteStudentAPI(studentId));

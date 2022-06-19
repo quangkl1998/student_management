@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import useForm from "./useForm";
 import { addStudentAPI, updateStudentAPI } from "../reducers/studentReducer";
 
@@ -30,7 +30,7 @@ const StudentForm = () => {
             <div className="bg-secondary p-3">
                 <h2 className="text-white">Thông tin sinh viên</h2>
             </div>
-            <form onSubmit={handleSubmit(onSuccess, onError, onUpdate)}>
+            <form onSubmit={() => handleSubmit(onSuccess, onError, onUpdate)}>
                 <div className="row">
                     <div className="col-sm-6">
                         <div className="mb-3">

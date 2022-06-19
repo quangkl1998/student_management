@@ -11,15 +11,24 @@ const initialState = {
         phone: "",
         email: "",
     },
+    searchValue: "",
 };
 
 export const fetchStudent = createAsyncThunk(
     "student/fetchStudent",
-    async (params) => {
+    async (params, { getState }) => {
         try {
+            const { searchValue } = getState().student;
+
             const { data } = await axios.get(
-                "https://62ae8ccbb735b6d16a43b5a6.mockapi.io/student",
+                `https://62ae8ccbb735b6d16a43b5a6.mockapi.io/student`,
+                {
+                    params: {
+                        name: searchValue,
+                    },
+                },
             );
+            console.log(data);
             return { students: data };
         } catch (error) {
             throw error.response.data;
@@ -89,8 +98,8 @@ const studentReducer = createSlice({
     name: "student",
     initialState: initialState,
     reducers: {
-        addStudent: (state, { payload }) => {
-            state.students.push(payload);
+        searchStudent: (state, { payload }) => {
+            state.searchValue = payload;
         },
     },
     extraReducers: {
@@ -119,5 +128,6 @@ const studentReducer = createSlice({
         },
     },
 });
+export const { searchStudent } = studentReducer.actions;
 
 export default studentReducer.reducer;
